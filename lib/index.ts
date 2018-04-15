@@ -1,15 +1,18 @@
 import axios from "axios"
-import qs from "qs"
 import { stopType, Coordinates } from "./stopFinder/types"
-import validateStopFinder from "./stopFinder"
+import { validateStopFinder } from "./stopFinder"
 
 const apiEndpoint = "https://api.transport.nsw.gov.au/v1/tp/"
 
 interface options {
     apiKey: string
-    apiEndpoint: URL
+    apiEndpoint: string
 }
 
+const config = {
+    outputFormat: "rapidJSON",
+    coordOutputFormat: "EPSG:4326",
+}
 
 /**
  * Retreive list of stations from API
@@ -17,7 +20,15 @@ interface options {
 export class TripPlanner {
 
     apiKey: string
-    apiEndpoint: URL = new URL(`https://api.transport.nsw.gov.au/v1/tp/`)
+
+    private _apiEndpoint: URL = new URL(`https://api.transport.nsw.gov.au/v1/tp/`)
+    get apiEndpoint():string {
+        return this._apiEndpoint.toString()
+    }
+    set apiEndpoint(url:string) {
+        this._apiEndpoint = new URL(url)
+    }
+
     outputFormat: string = "rapidJSON"
 
     constructor(options: options) {
@@ -49,14 +60,23 @@ export class TripPlanner {
     
     // Stop Finder
     // ==============================
-    stopFinder(name: string, type:stopType = stopType.Any) {
+    async stopFinder(name: string, type:stopType = stopType.Any) {
 
-        validateStopFinder(name)
+        validateStopFinder(name, type)
 
         // Append coord string
         if(type == stopType.Coord) {
             name = `${name}:EPSG:4326`
         }
+
+        const queryString = {
+            outputFormat: config.outputFormat,
+            coordOutputFormat: config.coordOutputFormat,
+            type_sf: type,
+            name_sf: name,
+        }
+
+        return axios.get(this.apiEndpoint, { params: queryString })
 
     }
 

@@ -18,15 +18,8 @@ const config = {
  */
 export default class TripPlanner {
 
-    apiKey: string
-
-    private _apiEndpoint: URL = new URL(`https://api.transport.nsw.gov.au/v1/tp/`)
-    get apiEndpoint():string {
-        return this._apiEndpoint.toString()
-    }
-    set apiEndpoint(url:string) {
-        this._apiEndpoint = new URL(url)
-    }
+    private apiKey: string
+    private apiEndpoint: string = `https://api.transport.nsw.gov.au/v1/tp/`
 
     constructor(options: options) {
 
@@ -42,7 +35,7 @@ export default class TripPlanner {
 
     // Validation
     // ==============================
-    validateOptions(options: options) {
+    private validateOptions(options: options) {
 
         if(options.apiKey == null) {
             throw new Error("API Key is null or missing.")

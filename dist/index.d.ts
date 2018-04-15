@@ -8,10 +8,9 @@ export interface options {
  * Retreive list of stations from API
  */
 export default class TripPlanner {
-    apiKey: string;
-    private _apiEndpoint;
-    apiEndpoint: string;
+    private apiKey;
+    private apiEndpoint;
     constructor(options: options);
-    validateOptions(options: options): void;
+    private validateOptions(options);
     stopFinder(name: string, type?: StopType): Promise<AxiosResponse<any>>;
 }

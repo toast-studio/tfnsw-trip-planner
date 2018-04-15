@@ -50,23 +50,13 @@ var config = {
  */
 var TripPlanner = /** @class */ (function () {
     function TripPlanner(options) {
-        this._apiEndpoint = new URL("https://api.transport.nsw.gov.au/v1/tp/");
+        this.apiEndpoint = "https://api.transport.nsw.gov.au/v1/tp/";
         this.validateOptions(options);
         this.apiKey = options.apiKey;
         if (options.apiEndpoint != null) {
             this.apiEndpoint = options.apiEndpoint;
         }
     }
-    Object.defineProperty(TripPlanner.prototype, "apiEndpoint", {
-        get: function () {
-            return this._apiEndpoint.toString();
-        },
-        set: function (url) {
-            this._apiEndpoint = new URL(url);
-        },
-        enumerable: true,
-        configurable: true
-    });
     // Validation
     // ==============================
     TripPlanner.prototype.validateOptions = function (options) {

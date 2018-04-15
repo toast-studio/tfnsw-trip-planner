@@ -2,12 +2,12 @@ import { AxiosResponse } from "axios";
 import { stopType } from "./stopFinder/types";
 export interface options {
     apiKey: string;
-    apiEndpoint: string;
+    apiEndpoint?: string;
 }
 /**
  * Retreive list of stations from API
  */
-export declare class TripPlanner {
+export default class TripPlanner {
     apiKey: string;
     private _apiEndpoint;
     apiEndpoint: string;

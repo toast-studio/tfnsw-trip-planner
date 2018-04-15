@@ -55,7 +55,9 @@ var TripPlanner = /** @class */ (function () {
         this.outputFormat = "rapidJSON";
         this.validateOptions(options);
         this.apiKey = options.apiKey;
-        this.apiEndpoint = options.apiEndpoint;
+        if (options.apiEndpoint != null) {
+            this.apiEndpoint = options.apiEndpoint;
+        }
     }
     Object.defineProperty(TripPlanner.prototype, "apiEndpoint", {
         get: function () {
@@ -104,4 +106,4 @@ var TripPlanner = /** @class */ (function () {
     };
     return TripPlanner;
 }());
-exports.TripPlanner = TripPlanner;
+exports.default = TripPlanner;

@@ -1,10 +1,11 @@
+import { AxiosResponse } from "axios"
 import axios from "axios"
 import { stopType, Coordinates } from "./stopFinder/types"
 import { validateStopFinder } from "./stopFinder"
 
 const apiEndpoint = "https://api.transport.nsw.gov.au/v1/tp/"
 
-interface options {
+export interface options {
     apiKey: string
     apiEndpoint: string
 }
@@ -17,7 +18,7 @@ const config = {
 /**
  * Retreive list of stations from API
  */
-export class TripPlanner {
+export default class TripPlanner {
 
     apiKey: string
 

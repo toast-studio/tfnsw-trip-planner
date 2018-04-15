@@ -1,6 +1,6 @@
 {
   "name": "tfnsw-trip-planner",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Wrapper for the Trip Planner API provided by Transport for NSW",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

@@ -3,14 +3,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var types_1 = require("./types");
 function validateStopFinder(name, type) {
     switch (type) {
-        case types_1.stopType.Any: {
+        case types_1.StopType.Any: {
         }
-        case types_1.stopType.Coord: {
+        case types_1.StopType.Coord: {
             var _a = extractCoords(name), longitude = _a.longitude, latitude = _a.latitude;
         }
-        case types_1.stopType.Poi: {
+        case types_1.StopType.Poi: {
         }
-        case types_1.stopType.Stop: {
+        case types_1.StopType.Stop: {
         }
         default:
             break;

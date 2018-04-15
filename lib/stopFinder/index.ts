@@ -1,18 +1,18 @@
-import { stopType, Coordinates } from "./types"
+import { StopType, Coordinates } from "./types"
 
-export function validateStopFinder(name: string, type:stopType) {
+export function validateStopFinder(name: string, type:StopType) {
 
     switch (type) {
-        case stopType.Any: {
+        case StopType.Any: {
 
         }
-        case stopType.Coord: {
+        case StopType.Coord: {
             const {longitude, latitude} = extractCoords(name)
         }
-        case stopType.Poi: {
+        case StopType.Poi: {
 
         }
-        case stopType.Stop: {
+        case StopType.Stop: {
 
         }
         default:

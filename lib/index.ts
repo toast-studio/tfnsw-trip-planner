@@ -1,9 +1,7 @@
 import { AxiosResponse } from "axios"
 import axios from "axios"
-import { stopType, Coordinates } from "./stopFinder/types"
+import { StopType, Coordinates } from "./stopFinder/types"
 import { validateStopFinder } from "./stopFinder"
-
-const apiEndpoint = "https://api.transport.nsw.gov.au/v1/tp/"
 
 export interface options {
     apiKey: string
@@ -29,8 +27,6 @@ export default class TripPlanner {
     set apiEndpoint(url:string) {
         this._apiEndpoint = new URL(url)
     }
-
-    outputFormat: string = "rapidJSON"
 
     constructor(options: options) {
 
@@ -64,13 +60,13 @@ export default class TripPlanner {
     
     // Stop Finder
     // ==============================
-    async stopFinder(name: string, type:stopType = stopType.Any) {
+    async stopFinder(name: string, type:StopType = StopType.Any) {
 
         validateStopFinder(name, type)
 
         // Append coord string
-        if(type == stopType.Coord) {
-            name = `${name}:EPSG:4326`
+        if(type == StopType.Coord) {
+            name = `${name}:${config.coordOutputFormat}`
         }
 
         const queryString = {
@@ -80,7 +76,7 @@ export default class TripPlanner {
             name_sf: name,
         }
 
-        return axios.get(this.apiEndpoint, { params: queryString })
+        return axios.get(this.apiEndpoint + "stop_finder", { params: queryString })
 
     }
 

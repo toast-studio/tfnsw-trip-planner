@@ -41,7 +41,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var axios_1 = __importDefault(require("axios"));
 var types_1 = require("./stopFinder/types");
 var stopFinder_1 = require("./stopFinder");
-var apiEndpoint = "https://api.transport.nsw.gov.au/v1/tp/";
 var config = {
     outputFormat: "rapidJSON",
     coordOutputFormat: "EPSG:4326",
@@ -52,7 +51,6 @@ var config = {
 var TripPlanner = /** @class */ (function () {
     function TripPlanner(options) {
         this._apiEndpoint = new URL("https://api.transport.nsw.gov.au/v1/tp/");
-        this.outputFormat = "rapidJSON";
         this.validateOptions(options);
         this.apiKey = options.apiKey;
         if (options.apiEndpoint != null) {
@@ -85,14 +83,14 @@ var TripPlanner = /** @class */ (function () {
     // Stop Finder
     // ==============================
     TripPlanner.prototype.stopFinder = function (name, type) {
-        if (type === void 0) { type = types_1.stopType.Any; }
+        if (type === void 0) { type = types_1.StopType.Any; }
         return __awaiter(this, void 0, void 0, function () {
             var queryString;
             return __generator(this, function (_a) {
                 stopFinder_1.validateStopFinder(name, type);
                 // Append coord string
-                if (type == types_1.stopType.Coord) {
-                    name = name + ":EPSG:4326";
+                if (type == types_1.StopType.Coord) {
+                    name = name + ":" + config.coordOutputFormat;
                 }
                 queryString = {
                     outputFormat: config.outputFormat,
@@ -100,7 +98,7 @@ var TripPlanner = /** @class */ (function () {
                     type_sf: type,
                     name_sf: name,
                 };
-                return [2 /*return*/, axios_1.default.get(this.apiEndpoint, { params: queryString })];
+                return [2 /*return*/, axios_1.default.get(this.apiEndpoint + "stop_finder", { params: queryString })];
             });
         });
     };

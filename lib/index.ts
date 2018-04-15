@@ -7,7 +7,7 @@ const apiEndpoint = "https://api.transport.nsw.gov.au/v1/tp/"
 
 export interface options {
     apiKey: string
-    apiEndpoint: string
+    apiEndpoint?: string
 }
 
 const config = {
@@ -37,7 +37,10 @@ export default class TripPlanner {
         this.validateOptions(options)
 
         this.apiKey = options.apiKey
-        this.apiEndpoint = options.apiEndpoint
+
+        if(options.apiEndpoint != null) {
+            this.apiEndpoint = options.apiEndpoint
+        }
 
     }
 
